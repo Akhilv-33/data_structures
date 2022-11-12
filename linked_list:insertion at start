@@ -1,0 +1,95 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node{
+    int data;
+    struct node * next;
+}*head;
+
+void creation(int n);
+void traversing();
+
+int main(){
+    int n,data;
+    printf("Enter number of nodes:\n");
+    scanf("%d",&n);
+    creation(n);
+    printf("The data:\n");
+    traversing();
+    printf("Enter node at begining:");
+    scanf("%d",&data);
+    insertatstart(data);
+    printf("The data allocate at node is:\n");
+    traversing();
+    return 0;
+}
+void creation(int n)
+{
+    struct node *newnode,*tmp;
+    int i,data;
+    
+    head=(struct node*)malloc(sizeof(struct node));
+    
+    if(head==NULL)
+    {
+        printf("No memory to allocate");
+        exit(0);
+    }
+    
+    printf("Enter node 1:");
+    scanf("%d",&data);
+    
+    head->data=data;
+    head->next=NULL;
+    
+    tmp=head;
+    for(i=2;i<=n;i++){
+        newnode=(struct node*)malloc(sizeof(struct node));
+        if(newnode==NULL){
+            printf("No memory to allocate");
+            exit(0);
+        }
+        printf("Enter node %d:",i);
+        scanf("%d",&data);
+        newnode->data=data;
+        newnode->next=NULL;
+        
+        tmp->next=newnode;
+        tmp=tmp->next;
+    }
+    printf("SINGLE LINKED LIST CREATED SUCESSFULLY");
+}
+void insertatstart(int data)
+{
+    struct node *newnode;
+    newnode=(struct node*)malloc(sizeof(struct node));
+        if(newnode==NULL){
+            printf("No memory to allocate");
+            exit(0);
+        }
+        else
+        {
+        newnode->data=data;
+        newnode->next=head;
+        
+        head=newnode;
+        }
+    printf("INSERTION SUCESSFUL\n");
+}
+void traversing()
+{
+    struct node *tmp;
+
+    if(head == NULL)
+    {
+        printf("List is empty.");
+        return;
+    }
+    
+    tmp = head;
+    while(tmp != NULL)
+    {
+        printf("The data:%d\n", tmp->data); 
+        tmp = tmp->next;        
+    }
+}
