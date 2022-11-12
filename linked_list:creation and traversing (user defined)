@@ -1,0 +1,74 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node{
+    int data;
+    struct node * next;
+}*head;
+
+void createlist(int n);
+void traversing();
+
+int main()
+{
+    int n;
+    printf("Enter number of nodes:");
+    scanf("%d",&n);
+    createlist(n);
+    traversing();
+}
+
+void createlist(int n)
+{
+    struct node *newnode, *tmp;
+    int data,i;
+    
+    head =(struct node *)malloc(sizeof(struct node));
+    
+    if(head==NULL){
+        printf("No memory to allocate:");
+        exit(0);
+    }
+    
+    printf("Enter node 1:");
+    scanf("%d",&data);
+    
+    head->data=data;
+    head->next=NULL;
+    
+    tmp=head;
+    for(i=2;i<=n;i++)
+    {
+        newnode=(struct node*) malloc(sizeof(struct node));
+        if(newnode==NULL){
+            printf("No memory to allocate:");
+            exit(0);
+        }
+        printf("Enter node %d:",i);
+        scanf("%d",&data);
+        
+        newnode->data=data;
+        newnode->next=NULL;
+        
+        tmp->next=newnode;
+        tmp=tmp->next;
+    }
+}
+
+void traversing()
+{
+    struct node *tmp;
+
+    if(head == NULL)
+    {
+        printf("List is empty.");
+        return;
+    }
+    
+    tmp = head;
+    while(tmp != NULL)
+    {
+        printf("The data:%d\n", tmp->data); // Print data of current node
+        tmp = tmp->next;                 // Move to next node
+    }
+}
