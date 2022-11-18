@@ -1,0 +1,115 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node{
+    int data;
+    struct node * next;
+}*head;
+
+void createlist(int n);
+void insertatmiddle(int data,int position);
+void displaylist();
+
+int main()
+{
+    int n,data,position;
+    printf("Enter number of nodes:");
+    scanf("%d",&n);
+    createlist(n);
+    printf("Data display:");
+    displaylist();
+    printf("Enter position to insert:");
+    scanf("%d",&position);
+    printf("Enter node to insert:");
+    scanf("%d",&data);
+    insertatmiddle( data, position);
+    printf("Data display:\n");
+    displaylist();
+}
+
+void createlist(int n){
+    struct node *newnode,*tmp;
+    int i,data;
+    head=(struct node*)malloc(sizeof(struct node));
+    
+    if(head==NULL){
+        printf("no memory to elocate");
+    }
+    printf("Enter node 1:");
+    scanf("%d",&data);
+    
+    head->data=data;
+    head->next=NULL;
+    
+    tmp=head;
+    for(i=2;i<=n;i++){
+      newnode=(struct node*)malloc(sizeof(struct node));
+    
+      if(newnode==NULL){
+        printf("no memory to elocate");
+      }
+      printf("Enter node %d:",i);
+      scanf("%d",&data);
+    
+      newnode->data=data;
+      newnode->next=NULL;
+      
+      tmp->next=newnode;
+      tmp=tmp->next;
+    }
+    printf("Linked list created succesfully\n");
+    
+}
+void insertatmiddle(int data,int position){
+    int i;
+    struct node *newnode,*tmp;
+    
+    newnode=(struct node*)malloc(sizeof(struct node));
+    
+    if(newnode==NULL)
+    {
+        printf("no memory to elocate");
+    }
+    else{
+        newnode->data=data;
+        newnode->next=NULL;
+        
+        tmp=head;
+        
+        for(i=2;i<position-1;i++)
+        {
+            tmp=tmp->next;
+            
+            if(tmp==NULL){
+                break;
+            }
+        }
+        if(tmp!=NULL){
+            newnode->next = tmp->next;
+            tmp->next=newnode;
+                
+            printf("Inserted succesfully\n");
+            }
+            else
+           {
+            printf("UNABLE TO INSERT DATA AT THE GIVEN POSITION\n");
+           }
+        }
+}
+    
+
+
+void displaylist(){
+    struct node*tmp;
+      
+    if(head==NULL){
+        printf("no memory to elocate");
+    }
+    tmp=head;
+    while(tmp!=NULL){
+        printf("Data = %d\n", tmp->data); 
+        tmp = tmp->next; 
+    }
+    
+}
+
